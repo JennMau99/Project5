@@ -16,8 +16,8 @@ int checkstage(char *stage, int stagenum, int startpipe, int endpipe)
 	int rightchevron = 0;
 	int i;
 	int length;
-	fprintf(stdout, "stage %d: %s\n", stagenum, stage);
-	length = strlen(stage);
+	/*fprintf(stdout, "stage %d: %s\n", stagenum, stage);
+	*/length = strlen(stage);
 	if (length == 0)
 	{
 		fprintf(stderr, "invalid null command\n");
@@ -98,6 +98,7 @@ int readline(char *line)
 	check = checkstage(stage, stagenum, startpipe, endpipe);
 	if (check == -1)
 		return -1;
+	getline(stage, stagenum, startpipe, endpipe);
 	return 0;
 }
 

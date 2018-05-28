@@ -16,8 +16,6 @@ int checkstage(char *stage, int stagenum, int startpipe, int endpipe)
 	int rightchevron = 0;
 	int i;
 	int length;
-	if (stage[0] == ' ')
-		stage = stage + 1;
 	fprintf(stdout, "stage %d: %s\n", stagenum, stage);
 	length = strlen(stage);
 	if (length == 0)
@@ -65,7 +63,7 @@ int readline(char *line)
 	int endpipe = -1;
 	int length = 0;
 	int check = 0;
-	char stage[514] = {0};
+	char stage[513] = {0};
 	fprintf(stdout, "line: ");
 	fgets(line, 513, stdin);
 	if (line[512] != 0)

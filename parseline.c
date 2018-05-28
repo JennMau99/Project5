@@ -50,6 +50,7 @@ int checkstage(char *stage, int stagenum, int startpipe, int endpipe)
 		fprintf(stderr, "cmd: ambiguous output\n");
 		return -1;
 	}
+	getline(stage, stagenum, startpipe, endpipe);
 
 	return 0;
 }
@@ -83,6 +84,8 @@ int readline(char *line)
 			stage[j++] = line[i];
 		else if (line[i] == '|')
 		{
+			if (endpipe == -1)
+				endpipe++;
 			endpipe++;
 			stage[j] = '\0';
 			check = checkstage(stage, stagenum, startpipe, endpipe);
@@ -94,11 +97,10 @@ int readline(char *line)
 		}
 	}
 	endpipe = -1;
-	stage[j] = '\0';
+	stage[j-1] = '\0';
 	check = checkstage(stage, stagenum, startpipe, endpipe);
 	if (check == -1)
 		return -1;
-	getline(stage, stagenum, startpipe, endpipe);
 	return 0;
 }
 

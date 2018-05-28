@@ -102,7 +102,7 @@ int readline(char *line)
 		}
 	}
 	endpipe = -1;
-	stage[j] = '\0';
+	stage[j-1] = '\0';
 	check = checkstage(stage, stagenum, startpipe, endpipe);
 	if (check == -1)
 		return -1;

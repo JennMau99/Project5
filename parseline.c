@@ -16,20 +16,25 @@ int checkstage(char *stage, int stagenum, int startpipe, int endpipe)
 	int rightchevron = 0;
 	int i;
 	int length;
-	/*fprintf(stdout, "stage %d: %s\n", stagenum, stage);
-	*/length = strlen(stage);
-	if (length == 0)
-	{
-		fprintf(stderr, "invalid null command\n");
-		return -1;
-	}
+	int notzero = 0;
+	/*fprintf(stdout, "stage %d: %s\n", stagenum, stage); */
+	length = strlen(stage);
 	for (i = 0; i < length; i++)
 	{
 		if (stage[i] == '<')
 			leftchevron++;
 		else if (stage[i] == '>')
 			rightchevron++;
+		if (stage[i] != ' ' && stage[i] != 10)
+			notzero = 1;
 	}
+	if (length == 0 || notzero == 0)
+	{
+		fprintf(stderr, "invalid null command\n");
+		return -1;
+	}
+	if (stage[length - 1] == 10)
+		stage[length - 1] = '\0';
 	if (leftchevron > 1)
 	{
 		fprintf(stderr, "cmd: bad input redirection\n");
@@ -50,6 +55,7 @@ int checkstage(char *stage, int stagenum, int startpipe, int endpipe)
 		fprintf(stderr, "cmd: ambiguous output\n");
 		return -1;
 	}
+	getline(stage, stagenum, startpipe, endpipe);
 
 	return 0;
 }
@@ -83,6 +89,8 @@ int readline(char *line)
 			stage[j++] = line[i];
 		else if (line[i] == '|')
 		{
+			if (endpipe == -1)
+				endpipe++;
 			endpipe++;
 			stage[j] = '\0';
 			check = checkstage(stage, stagenum, startpipe, endpipe);
@@ -98,7 +106,6 @@ int readline(char *line)
 	check = checkstage(stage, stagenum, startpipe, endpipe);
 	if (check == -1)
 		return -1;
-	getline(stage, stagenum, startpipe, endpipe);
 	return 0;
 }
 

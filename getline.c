@@ -35,7 +35,7 @@ int getline(char *array, int stage, int startpipe, int endpipe)
 
 	char * words;
 
-	printf("--------");
+	printf("\n--------");
 	printf("\nStage %d: \"%s\"", stage, array);
 	printf("\n--------");	 
 	
@@ -103,7 +103,7 @@ int getline(char *array, int stage, int startpipe, int endpipe)
 			printf(", ");
 	}
 		
-	
+	printf("\n");
 
 
 	return 0;

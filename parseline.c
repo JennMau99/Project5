@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "header.h"
 
 /* getline takes char array of 512, int startpipe, int endpipe */
 

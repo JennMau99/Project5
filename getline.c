@@ -8,14 +8,17 @@
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
+#include "header.h"
 
 int getline(char *array, int stage, int startpipe, int endpipe);
+/*
 int main()
 {
 	char array[]= " sort\0";
 	getline(array, 2, 1, -1);
 	return 0;
 }
+*/
 int getline(char *array, int stage, int startpipe, int endpipe)
 {
 	int i = 0;
